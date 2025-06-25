@@ -33,17 +33,18 @@ echo 'a === b:' . ($a === $b) . ":答え<br>\n";
 $a += 5;
 echo "a += 5 -> : {$a} <br> \n"
 
-/*
-const price = 580;
-const tax = price * 0.1;
-console.log('税込み:', price + tax);
-console.log('price=5をやってみる');
+// const price = 580;
+// const tax = price * 0.1;
+// console.log('税込み:', price + tax);
+// console.log('price=5をやってみる');
 // price=5;
+
 
 console.log('ランダムな整数（1〜6）:', Math.floor(Math.random() * 6) + 1);
 console.log('Math.random()*10:', Math.random()*10 );
 console.log('Math.floor(1.5):', Math.floor(1.5) );
 
+/*
 console.log("process.stdout のテスト")
 process.stdout.write('Hello ');
 process.stdout.write('JS');
