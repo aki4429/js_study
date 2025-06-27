@@ -1,6 +1,4 @@
-
 <?php
-// lib/age_checker.php
 declare(strict_types=1);
 
 function ageMessage(int $age): string
