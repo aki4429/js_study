@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<meta charset="utf-8" />
+<title>カレンダー</title>
+<style>
+  table { border-collapse: collapse; margin-top: 1rem; }
+  th, td { border: 1px solid #666; width: 2.5rem; height: 2rem; text-align: right; }
+  caption { font-weight: bold; margin-bottom: .4rem; }
+</style>
+<body>
+<div id="app"></div>
+
+<script>
+  const year  = Number(prompt('西暦 (例 2025):'));
+  const month = Number(prompt('月 (1-12):')) - 1;
+
+  if (!Number.isInteger(year) || month < 0 || month > 11) {
+    alert('数値を正しく入力してください');
+    throw new Error('Invalid input');
+  }
+
+  const weeks = ['日','月','火','水','木','金','土'];
+  const last  = new Date(year, month + 1, 0).getDate();
+  const firstWeekday = new Date(year, month, 1).getDay();
+
+  /* ---- HTML 文字列を組み立て ---- */
+  let html = `<table><caption>${year}年 ${month+1}月</caption><tr>`;
+  html += weeks.map(w => `<th>${w}</th>`).join('');
+  html += '</tr><tr>';
+
+  // 先頭の空セル
+  html += '<td></td>'.repeat(firstWeekday);
+
+  for (let d = 1; d <= last; d++) {
+    html += `<td>${d}</td>`;
+    if ((firstWeekday + d) % 7 === 0 && d !== last) html += '</tr><tr>';
+  }
+  html += '</tr></table>';
+
+  /* ---- 画面に挿入 ---- */
+  document.getElementById('app').innerHTML = html;
+</script>
+</body>
+</html>

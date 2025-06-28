@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>シンプル月カレンダー</title>
+  <style>
+    body   { font-family: sans-serif; padding: 1rem; }
+    table  { border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #ccc; width: 2.5rem; height: 2rem; text-align: right; }
+    caption { font-weight: bold; margin-bottom: .5rem; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    /* ① ユーザー入力（キャンセルなら現在の日付を使う） */
+    const yInput = prompt('表示したい年を入力してください (例: 2025)', new Date().getFullYear());
+    const mInput = prompt('表示したい月を入力してください (1-12)', new Date().getMonth() + 1);
+
+    const year  = Number(yInput);
+    const month = Number(mInput) - 1;   // Date() は 0=1月
+
+    /* 入力チェック：不正なら現在年月にフォールバック */
+    const now = new Date();
+    const y = Number.isFinite(year)  && year  > 0   ? year         : now.getFullYear();
+    const m = Number.isFinite(month) && month >= 0  && month < 12  ? month        : now.getMonth();
+
+    /* ② その月の最終日と開始曜日を計算 */
+    const lastDate    = new Date(y, m + 1, 0).getDate();
+    const firstWeekday = new Date(y, m, 1).getDay();
+    const weekLabels   = ['日','月','火','水','木','金','土'];
+
+    /* ③ <table> 要素を組み立て */
+    const tbl  = document.createElement('table');
+    const cap  = document.createElement('caption');
+    cap.textContent = `${y} 年  ${m + 1} 月`;
+    tbl.appendChild(cap);
+
+    /* 曜日行 */
+    const head = document.createElement('tr');
+    weekLabels.forEach(w => {
+      const th = document.createElement('th');
+      th.textContent = w;
+      head.appendChild(th);
+    });
+    tbl.appendChild(head);
+
+    /* 日付セルを順に追加 */
+    let row = document.createElement('tr');
+    // 先頭の空セル
+    for (let i = 0; i < firstWeekday; i++) row.appendChild(document.createElement('td'));
+
+    for (let d = 1; d <= lastDate; d++) {
+      if ((firstWeekday + d - 1) % 7 === 0 && d !== 1) {   // 行替え
+        tbl.appendChild(row);
+        row = document.createElement('tr');
+      }
+      const td = document.createElement('td');
+      td.textContent = d;
+      row.appendChild(td);
+    }
+    tbl.appendChild(row);   // 末尾行を追加
+
+    /* ④ 画面に挿入 */
+    document.getElementById('app').appendChild(tbl);
+  </script>
+</body>
+</html>

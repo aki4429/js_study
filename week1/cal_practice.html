@@ -1,0 +1,45 @@
+
+<!DOCTYPE html><meta charset="utf-8">
+<body>
+
+  <!-- ❶ ここに文字を差し込むための空コンテナ -->
+  <div id="app"></div>
+
+
+  <script>
+    year = Number(prompt("カレンダーを表示します。西暦(ex. 2025) :"));
+    month = Number(prompt("月(ex. 6) :")) - 1;
+
+    const weeks = ['日','月','火','水','木','金','土'];
+const last  = new Date(year, month + 1, 0).getDate();
+const firstWeekday = new Date(year, month, 1).getDay();
+
+const title = '<th colspan="7">' + year + "年 " + (month + 1) + "月 カレンダー" +"</th>";
+let week_line = '';
+
+for(x of weeks) {
+  week_line += '<td>';
+  week_line += x ;
+  week_line += '</td>';
+}
+
+const titleLine = `<table border="1"><tr>${title}</tr><tr>${week_line} </tr>`;
+
+// カレンダー生成
+let calLine = '<tr>' ;   
+for(i=0; i < firstWeekday; i++){
+  calLine += '<td></td>';
+}
+
+for (let d = 1; d <= last; d++) {
+  calLine += `<td>${d}</td>`;
+  if ((firstWeekday + d) % 7 === 0 || d === last) {
+    calLine += `</tr>`;
+  }
+}
+
+const container = document.getElementById('app');
+container.innerHTML = titleLine + calLine;
+
+  </script>
+</body>
