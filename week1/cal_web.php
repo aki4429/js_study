@@ -46,18 +46,43 @@ echo "</table>" ;
 $html = ob_get_clean();
 ?>
 <!DOCTYPE html>
-<meta charset="utf-8" />
-<title>カレンダー表示</title>
 
-<form method="GET">
-  <label>西暦を入力してください。(ex. 2025) :
-    <input name="year" type="number" min="0">
-  </label>
-  <br>
-  <label>月を入力してください。(ex. 6) :
-    <input name="month" type="number" min="0">
-  </label>
-  <br>
-  <button>カレンダー表示</button>
-</form>
-<?= $html ?>
+<head>
+  <meta charset="utf-8" />
+  <style>
+  table {
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  th,
+  td {
+    border: 1px solid #666;
+    width: 2.5rem;
+    height: 2rem;
+    text-align: right;
+  }
+
+  caption {
+    font-weight: bold;
+    margin-bottom: .4rem;
+  }
+  </style>
+  <title>カレンダー表示</title>
+
+  <head>
+
+  <body>
+    <form method="GET">
+      <label>西暦を入力してください。(ex. 2025) :
+        <input name="year" type="number" min="0">
+      </label>
+      <br>
+      <label>月を入力してください。(ex. 6) :
+        <input name="month" type="number" min="0">
+      </label>
+      <br>
+      <button>カレンダー表示</button>
+    </form>
+    <?= $html ?>
+  </body>
