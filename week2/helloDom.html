@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello DOM!</title>
+  <!-- CDN Tailwind を足すと色が付く -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <h1 id="title">Hello DOM!</h1>
+  <button id="btn">色チェンジ</button>
+  <h3>カウンタ [ <span id="count">0</span> ]</h3>
+  <button id="btn2">カウントアップ</button>
+  <style>
+    .blue {color: red;}
+  </style>
+
+  <script>
+    const title = document.querySelector('#title');
+    document.querySelector('#btn').addEventListener('click', () => {
+      // title.classList.toggle('text-red-500');         // Tailwind 併用可
+      title.classList.toggle("blue");         // Tailwind 併用しない
+    });
+      let i = 0;
+    document.querySelector('#btn2').addEventListener('click', () => {
+      i ++ ;
+      document.getElementById('count').innerHTML = i;
+    });
+  </script>
+</body>
+</html>

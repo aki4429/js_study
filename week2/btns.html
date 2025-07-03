@@ -1,0 +1,29 @@
+<!DOCTYPE html><meta charset="utf-8">
+<body>
+  <div id="btnBox" class="space-x-2">
+    <button data-color="red">赤</button>
+    <button data-color="green">緑</button>
+    <button data-color="blue">青</button>
+  </div>
+
+  <p id="text" style="font-size:1.5rem;margin-top:1rem">
+    色が変わります
+  </p>
+
+  <!-- ★ スクリプトは要素の “あと” に配置（重要） -->
+  <script>
+    const box  = document.getElementById('btnBox');   // 親要素
+    const text = document.getElementById('text');     // 変更対象
+
+    // イベント委任：ボタンがいくつあってもリスナー1つ
+    box.addEventListener('click', e => {
+      const btn = e.target.closest('button');   // ボタンかどうか判定
+      if (!btn) return;                         // ボタン以外クリックは無視
+
+      const color = btn.dataset.color;          // data-color="red" などを取得
+      text.style.color = color;                 // テキストの文字色を変更
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loop</title>
+</head>
+<body>
+  <ul id="animals" class="test">
+  <li>Cat</li><li>Dog</li><li>Bird</li>
+</ul>
+<div id="btnBox">
+  <button data-color="red">赤</button>
+  <button data-color="green">緑</button>
+  <button data-color="blue">青</button>
+</div>
+<p id="text">色が変わります</p>
+<style>
+  .highlight {color: yellowgreen}
+</style>
+
+<script>
+/*
+const items = document.querySelectorAll('#animals li'); // NodeList
+items.forEach((li, i) => {
+  li.textContent = `${i + 1}. ${li.textContent}`;       // 1. Cat … と番号付け
+});
+for(let i=0; i <items.length ; i++){
+  items[i].textContent = `${i + 10}. ${items[i].textContent}`; 
+}
+const ul = document.getElementById('animals') ;
+ul.outerHTML = ul.outerHTML.replace('ul', 'ol');
+*/
+
+const ul   = document.getElementById('animals');
+const ol   = document.createElement('ol');     // 新しい <ol>
+
+  console.log(ul.attributes);
+
+
+[...ul.attributes].forEach(attr => ol.setAttribute(attr.name, attr.value)); // 属性コピー
+ol.innerHTML = ul.innerHTML;                  // 子要素ごと中身コピー
+
+ul.replaceWith(ol);                           // DOMツリー置き換え
+
+
+
+
+items.forEach(li => {
+  li.addEventListener('click', () => {
+    li.classList.toggle('highlight');
+  });
+});
+
+const box  = document.getElementById('btnBox');
+const text = document.getElementById('text');
+
+box.addEventListener('click', e => {
+  const btn = e.target.closest('button');   // button を押した？
+  if (!btn) return;                         // それ以外は無視
+  text.style.color = btn.dataset.color;     // data-color の値を適用
+});
+
+
+</script>
+
+</body>
+</html>
